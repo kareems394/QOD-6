@@ -4,15 +4,21 @@ using namespace std;
 int check(string test){
     int count =0;
     int max = 0;
+    bool left = false;
     for(int i=0; i< test.length(); i++){
-        if(i%2==0 && test[i] == '('){
+        if(left && count ==0)
+            count = 1;
+        if(!left && test[i] == '('){
             count++;
+            left = true;
         }
-        else if(count!=0 && i%2 ==1 && test[i] ==')'){
+        else if(left && test[i] ==')'){
             count++;
+            left = false;
         }
         else{
             count=0;
+            left = true;
         }
         if(count >max){
             max = count;
@@ -25,7 +31,7 @@ int check(string test){
 }
 int main()
 {
-    string s = "())(()()";
+    string s = "(()((((";
     cout << check(s);
 
     return 0;
